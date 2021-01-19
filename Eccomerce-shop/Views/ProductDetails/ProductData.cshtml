@@ -1,0 +1,92 @@
+﻿@model Eccomerce_shop.Models.Product.Product
+<link href="~/Content/productData.less" rel="stylesheet" />
+@{
+    ViewBag.Title = "ProductData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var productData = Model;
+}
+
+<div class="row" id="@productData.Id">
+    <div class="col-md-4">
+        <img class="img-responsive" title="@productData.Title"
+             style="cursor:pointer;height:250px;width:100%"
+             src="~/Models/Product/image/@(productData.ArtId).jpg" />
+        <br />
+        <div class="amountBtn">
+
+            <i class="fa fa-plus" style="margin:auto; margin-top:10px" onclick="increase('@productData.Id')"></i>
+
+            <span>0</span>
+
+            <i class="fa fa-minus" style="margin:auto; margin-top:10px" onclick="decrease('@productData.Id')"></i>
+
+        </div>
+    </div>
+    <div class="col-md-8">
+        <table id="details">
+            <tr>
+                <td>Id</td>
+                <td>@productData.Id</td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td>@productData.Category</td>
+            </tr>
+            <tr>
+                <td>Size</td>
+                <td>@productData.Size</td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td>@productData.Price</td>
+            </tr>
+            <tr>
+                <td>Title</td>
+                <td>@productData.Title</td>
+            </tr>
+            <tr>
+                <td>Art Dating</td>
+                <td>@productData.ArtDating</td>
+            </tr>
+            <tr>
+                <td>Art Id</td>
+                <td name="artId">@productData.ArtId</td>
+            </tr>
+            <tr>
+                <td>Artist</td>
+                <td>@productData.Artist</td>
+            </tr>
+            <tr>
+                <td>Artist Birth Date</td>
+                <td>@productData.ArtistBirthDate</td>
+            </tr>
+            <tr>
+                <td>Artist Death Date</td>
+                <td>@productData.ArtistDeathDate</td>
+            </tr>
+            <tr>
+                <td>Artist Nationality</td>
+                <td>@productData.ArtistNationality</td>
+            </tr>
+            <tr>
+                <td>Art Description</td>
+                <td>@productData.ArtDescription</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script>
+    //check where to put this code
+    // checkout page include emails
+    // impliment repository and EF
+    let cart = JSON.parse(window.localStorage.getItem("cart"));
+    if (cart != undefined) {
+        if (cart.items.length) {
+            let index = cart.items.findIndex(item => item.id == @productData.Id);
+            if (index >= 0) {
+                setAmount(cart.items[index].qty, cart.items[index].id);
+            }
+        }
+    }
+</script>
+

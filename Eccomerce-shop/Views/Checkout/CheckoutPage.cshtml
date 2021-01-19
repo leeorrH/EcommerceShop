@@ -1,0 +1,91 @@
+﻿
+@model List<Eccomerce_shop.Models.Checkout.CartItem>
+@{
+    ViewBag.Title = "CheckoutPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    decimal totalPrice = 0;
+    if (Session["cart"] != null)
+    {
+        foreach (var cartItem in (List<Eccomerce_shop.Models.Checkout.CartItem>)Session["cart"])
+        {
+            totalPrice += cartItem.Product.Price * cartItem.qty;
+        }
+    }
+}
+
+<h2>Checkout</h2>
+<div class="flex-container">
+    @if (Session["cart"] == null)
+    {
+        <div class="alert alert-danger">
+            <strong>No product added to cart!</strong>
+        </div>
+
+    }
+    else
+    {
+        <div class="col mr-15">
+            <table class="table table-bordered products-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Quantity</th>
+                        <th>Unit price ($)</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cartItem in (List<Eccomerce_shop.Models.Checkout.CartItem>)Session["cart"])
+                    {
+                        <tr>
+                            <td>
+                                <img class="img-responsive" title="@cartItem.Product.Title"
+                                     style="cursor:pointer;height:100px;width:100px"
+                                     src="~/Models/Product/image/@(cartItem.Product.ArtId).jpg" />
+                            </td>
+                            <td>@cartItem.Product.Title</td>
+                            <td>@cartItem.qty</td>
+                            <td>@cartItem.Product.Price</td>
+                            <td>@(cartItem.Product.Price * cartItem.qty)</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            ToTal Price : @totalPrice $
+        </div>
+        <div class="col">
+            <form>
+                <div class="flex-container mb-10">
+                    <div class="mr-15">
+                        <input id="firstName" type="text" class="form-control" placeholder="First name">
+                    </div>
+                    <div class="col">
+                        <input id="lastName" type="text" class="form-control" placeholder="Last name">
+                    </div>
+                </div>
+                <div class="flex-container mb-10">
+                    <div class="mr-15">
+                        <input id="email" type="email" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="col">
+                        <input id="phone" type="tel" class="form-control" placeholder="Phone">
+                    </div>
+                </div>
+                <div class="flex-container mb-10">
+                    <div class="mr-15">
+                        <input id="fullAddress" type="text" class="form-control" placeholder="Full address">
+                    </div>
+                    
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary" onclick="submitOrder()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    }
+</div>
+
+

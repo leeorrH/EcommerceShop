@@ -1,0 +1,30 @@
+﻿@model Eccomerce_shop.Models.Product.Product
+@{
+    var product = Model;
+}
+<div class="row product-container" id="@product.Id">
+    <div class="col-md-10" style="margin-bottom:8px; padding:15px">
+        <div class="thumbnail product-item" style="height:300px">
+
+            <img class="img-responsive" title="Click to View Product detail"
+                 style="cursor:pointer;height:160px;width:100%"
+                 src="~/Models/Product/image/@(product.ArtId).jpg"
+                 onclick="redirectToProductDetails(@product.Id)" />
+            <div class="amountBtn">
+
+                <i class="fa fa-plus" style="margin:auto; margin-top:10px" onclick="increase('@product.Id')"></i>
+
+                <span>0</span>
+
+                <i class="fa fa-minus" style="margin:auto; margin-top:10px" onclick="decrease('@product.Id')"></i>
+
+            </div>
+
+            <div class="caption">
+                <h5>@product.Title</h5>
+                <p>@product.Price $</p>
+                <p>@product.ArtDescription</p>
+            </div>
+        </div>
+    </div>
+</div>
