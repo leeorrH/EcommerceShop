@@ -11,9 +11,9 @@
 //    {
 //        DbSet<Tbl_Entity> _dbSet;
 
-//        private dbMyOnlineShoppingEntities _DBEntity;
+//        private dbEcommerceShopEntities _DBEntity;
 
-//        public GenericRepository(dbMyOnlineShoppingEntities DBEntity)
+//        public GenericRepository(dbEcommerceShopEntities DBEntity)
 //        {
 //            _DBEntity = DBEntity;
 //            _dbSet = _DBEntity.Set<Tbl_Entity>();
