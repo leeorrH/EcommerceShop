@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using Eccomerce_shop.Models.Checkout;
+using Eccomerce_shop.Models;
 
 namespace Eccomerce_shop.Controllers
 {
@@ -68,7 +69,7 @@ namespace Eccomerce_shop.Controllers
 
         }
 
-        private void EditCart(int productId,bool isAdd)
+        private void EditCart(int productId, bool isAdd)
         {
             List<CartItem> cart;
             bool isAddToCartNeeded = false;
@@ -110,18 +111,20 @@ namespace Eccomerce_shop.Controllers
             Session["cart"] = cart;
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public void InitCart(CartRequest cart)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            List<CartItem> cartFromLS = new List<CartItem>();
+            foreach (PartialProduct p in cart.items)
+            {
+                Product fullProduct = _allProducts.FirstOrDefault(product => product.Id == Int16.Parse(p.id));
+                cartFromLS.Add(new CartItem()
+                {
+                    Product = fullProduct,
+                    qty = p.qty
+                });
+            }
+            Session["cart"] = cartFromLS;
         }
     }
 }

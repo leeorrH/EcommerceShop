@@ -6,7 +6,7 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="olContent f1"><h2 style="color:black">Search Product/Category</h2></div>
+<div class="olContent f1"><h2 style="color:black">Search Product By name</h2></div>
 <div class="olSearch fr">
     <input type="text" placeholder="Enter Keyword" name="searchKey" class="inputComn houseText form-control" />
     <div class="searchIcon">
@@ -67,7 +67,9 @@
             cart.items.forEach(item => {
                 setAmount(item.qty, item.id);
             })
+            $.post("/Home/InitCart",{ cart: cart });
         }
+        
     }
 
     onload = initCart;

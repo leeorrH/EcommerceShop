@@ -177,9 +177,7 @@ h6 {
 }
 
 .searchIcon {
-    position: absolute;
-    top: 0;
-    right: 0;
+
 }
 
 .searchBtn {
@@ -199,6 +197,7 @@ h6 {
 
 .olSearch {
     position: relative;
+    display:flex;
 }
 
 .content {
